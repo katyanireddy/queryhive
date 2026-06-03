@@ -1,18 +1,20 @@
-const prisma = require("../config/prisma");
+import prisma from "../config/prisma.js";
 
-const getMessages = async (req, res) => {
+export const getMessages = async (req, res) => {
   try {
     const messages = await prisma.message.findMany();
 
     res.json(messages);
   } catch (error) {
     console.log(error);
+
     res.status(500).json({
       error: "Something went wrong",
     });
   }
 };
-const createMessage = async (req, res) => {
+
+export const createMessage = async (req, res) => {
   try {
     const { text } = req.body;
 
@@ -30,9 +32,4 @@ const createMessage = async (req, res) => {
       error: "Something went wrong",
     });
   }
-};
-
-module.exports = {
-  getMessages,
-  createMessage,
 };
