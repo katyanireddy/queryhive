@@ -32,4 +32,4 @@ export const createMessage = async (req, res) => {
       error: "Something went wrong",
     });
   }
-};
+}

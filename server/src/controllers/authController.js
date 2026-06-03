@@ -12,7 +12,7 @@ export const signup = async (req, res) => {
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
-
+    
     if (existingUser) {
       res.status(400).json({
         message: "User already exists",
@@ -32,6 +32,8 @@ export const signup = async (req, res) => {
         password: hashedPassword,
       },
     });
+
+    console.log(user);
 
     // Generate token
     const token = jwt.sign(
@@ -65,6 +67,8 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email);
+console.log(password);
 
     // Find user
     const user = await prisma.user.findUnique({
