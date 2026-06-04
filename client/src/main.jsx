@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import {
   BrowserRouter,
@@ -32,9 +33,13 @@ createRoot(document.getElementById("root")).render(
 
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
         />
-      </Routes>
+        </Routes>
     </BrowserRouter>
   </StrictMode>
 );

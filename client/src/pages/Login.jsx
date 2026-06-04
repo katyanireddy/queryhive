@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
+const handleLogin = async () => {
+    console.log("LOGIN BUTTON CLICKED");
+
+    console.log(email);
+    console.log(password);
+    
   try {
     const res = await axios.post(
       "http://localhost:8000/api/auth/login",
@@ -14,8 +21,24 @@ export default function Login() {
         password,
       }
     );
+    console.log("FULL RESPONSE:", res.data);
 
-    console.log(res.data);
+    localStorage.setItem(
+      "token",
+      res.data.token
+    );
+
+    console.log(
+        "TOKEN AFTER SAVE:",
+        localStorage.getItem("token")
+    );
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(res.data.user)
+    );
+
+    navigate("/dashboard");
 
   } catch (error) {
     console.log(error);
